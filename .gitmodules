@@ -1,0 +1,3 @@
+[submodule "submodules/EstimoteSDK"]
+	path = submodules/EstimoteSDK
+	url = git@github.com:Estimote/iOS-SDK.git
