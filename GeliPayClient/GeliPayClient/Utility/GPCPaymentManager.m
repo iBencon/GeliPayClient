@@ -14,6 +14,10 @@
 @property UIAlertView *paymentAlertView;
 @end
 
+NSString * const kPayPalClientID = @"AaA5HxBf_ZXpaG1JDoYaSi3sl9KxhH9visChFhGG6hD82iDV8sZQr4zOm6WH";
+
+NSString * const kReceiverEmail = @"allegllet.scherzand-facilitator@gmail.com";
+
 @implementation GPCPaymentManager
 
 + (id)sharedInstance
@@ -67,10 +71,11 @@
 
 - (void)verifyCompletedPayment:(PayPalPayment *)completedPayment {
     // Send the entire confirmation dictionary
+    /*
     NSData *confirmation = [NSJSONSerialization dataWithJSONObject:completedPayment.confirmation
                                                            options:0
                                                              error:nil];
-    
+    */
     // Send confirmation to your server; your server should verify the proof of payment
     // and give the user their goods or services. If the server is not reachable, save
     // the confirmation and try again later.

@@ -31,3 +31,7 @@
 - (void)presentPaymentLocalNotification;
 
 @end
+
+FOUNDATION_EXTERN NSString * const kPayPalClientID;
+
+FOUNDATION_EXTERN NSString * const kReceiverEmail;

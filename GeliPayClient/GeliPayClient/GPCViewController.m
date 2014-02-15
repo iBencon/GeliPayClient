@@ -18,9 +18,6 @@
 #import "GPCDeviceInformation.h"
 #import "PayPalMobile.h"
 
-static const NSInteger kBeaconMajorId = 6521;
-static const NSInteger kBeaconMinorId = 13509;
-
 @interface GPCViewController () <GPCBeaconUtilityDelegate, GPCPaymentManagerDelegate>
 
 @property NSTimer                   *delayedNotificationTimer;
@@ -35,9 +32,8 @@ static const NSInteger kBeaconMinorId = 13509;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    // Start out working with the test environment! When you are ready, remove this line to switch to live.
     [PayPalPaymentViewController setEnvironment:PayPalEnvironmentNoNetwork];
-    [PayPalPaymentViewController prepareForPaymentUsingClientId:@"YOUR_CLIENT_ID"];
+    [PayPalPaymentViewController prepareForPaymentUsingClientId:kPayPalClientID];
 }
 
 - (void)viewDidLoad
@@ -82,13 +78,13 @@ static const CGFloat kPlaySoundDelayTime = 5.0f;
 #pragma mark - Estimote
 
 static const CGFloat kNotifyAndStartCountDownTime = 5.0f;
-- (void)onEnterRegion
+- (void)onEnterRegion:(ESTBeaconRegion *)region
 {
     [self showLog:@">>>>> onEnterRegion"];
     
 #ifndef OFFLINE
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary* param = @{@"devise_id" : [NSString stringWithFormat:@"%ld-%ld", (long)kBeaconMajorId, (long)kBeaconMinorId],
+    NSDictionary* param = @{@"devise_id" : [NSString stringWithFormat:@"%@-%@", [region major], [region minor]],
                             @"uid" : [GPCDeviceInformation uniqueID]};
     [manager POST:@"http://gelipay.herokuapp.com/users.json" parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"response: %@", responseObject);
@@ -115,10 +111,10 @@ static const CGFloat kNotifyAndStartCountDownTime = 5.0f;
          parameters:param
             success:^(AFHTTPRequestOperation *operation, id responseObject)
             {
-                NSLog(@"response: %@", responseObject);
+                NSLog(@">>>>> Response: %@", responseObject);
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error: %@", error);
+                NSLog(@">>>>> Error: %@", error);
     }];
 #endif
     [_delayedNotificationTimer invalidate];
@@ -131,49 +127,41 @@ static const CGFloat kNotifyAndStartCountDownTime = 5.0f;
 
 -(void)willPaid
 {
-    // Create a PayPalPayment
     PayPalPayment *payment = [[PayPalPayment alloc] init];
     payment.amount = [[NSDecimalNumber alloc] initWithString:@"39.95"];
     payment.currencyCode = @"USD";
     payment.shortDescription = @"下痢止め";
     
-    // Check whether payment is processable.
     if (!payment.processable) {
-        // If, for example, the amount was negative or the shortDescription was empty, then
-        // this payment would not be processable. You would want to handle that here.
         NSLog(@"This payment would not be processable.");
     }
     
     [PayPalPaymentViewController setEnvironment:PayPalEnvironmentNoNetwork];
     
-    // Provide a payerId that uniquely identifies a user within the scope of your system,
-    // such as an email address or user ID.
     NSString *aPayerId = @"allegllet.scherzand.paypal@gmail.com";
     
-    // Create a PayPalPaymentViewController with the credentials and payerId, the PayPalPayment
-    // from the previous step, and a PayPalPaymentDelegate to handle the results.
     PayPalPaymentViewController *paymentViewController;
-    paymentViewController = [[PayPalPaymentViewController alloc] initWithClientId:@"AaA5HxBf_ZXpaG1JDoYaSi3sl9KxhH9visChFhGG6hD82iDV8sZQr4zOm6WH"
-                                                                    receiverEmail:@"allegllet.scherzand-facilitator@gmail.com"
+    paymentViewController = [[PayPalPaymentViewController alloc] initWithClientId:kPayPalClientID
+                                                                    receiverEmail:kReceiverEmail
                                                                           payerId:aPayerId
                                                                           payment:payment
                                                                          delegate:[GPCPaymentManager sharedInstance]];
     
-    // Present the PayPalPaymentViewController.
     [self presentViewController:paymentViewController animated:YES completion:nil];
 }
 
-- (void)didPaid {
+- (void)didPaid
+{
     [self showLog:@">>>>> Paid"];
     
 #ifndef OFFLINE
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary* param = @{@"devise_id" : [NSString stringWithFormat:@"%ld-%ld", (long)kBeaconMajorId, (long)kBeaconMinorId],
+    NSDictionary* param = @{@"devise_id" : [NSString stringWithFormat:@"%d-%d", kBeaconMajorID, kBeaconMinorID],
                             @"uid" : [GPCDeviceInformation uniqueID]};
     [manager POST:@"http://gelipay.herokuapp.com/users/pay.json" parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"response: %@", responseObject);
+        NSLog(@">>>>> Response: %@", responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        NSLog(@">>>>> Error: %@", error);
     }];
 #endif
     [_delayedSoundTimer invalidate];
