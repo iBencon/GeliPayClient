@@ -17,8 +17,8 @@
 @property BOOL              isEnter;
 @end
 
-static const NSInteger kBeaconMajorId = 6521;
-static const NSInteger kBeaconMinorId = 13509;
+const NSInteger kBeaconMajorID = 6521;
+const NSInteger kBeaconMinorID = 13509;
 
 @implementation GPCBeaconUtility
 
@@ -39,13 +39,14 @@ static const NSInteger kBeaconMinorId = 13509;
     [_beaconManager setDelegate:self];
     [_beaconManager setAvoidUnknownStateBeacons:YES];
     ESTBeaconRegion *region = [[ESTBeaconRegion alloc] initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID
+                                                                       major:kBeaconMajorID
+                                                                       minor:kBeaconMinorID
                                                                   identifier:@"jp.co.GeliPayClient.iBencon"];
-//#ifdef ONLY_FOREGROUND
+
     [_beaconManager startRangingBeaconsInRegion:region];
-//#else
+
     [_beaconManager startMonitoringForRegion:region];
     [_beaconManager requestStateForRegion:region];
-//#endif
 }
 
 - (void)beaconManager:(ESTBeaconManager *)manager
@@ -58,13 +59,13 @@ static const NSInteger kBeaconMinorId = 13509;
         switch (selectedBeacon.proximity)
         {
             case CLProximityNear:
-                [self onEnterRegion];
+            [self onEnterRegion:region];
             break;
             case CLProximityImmediate:
-                [self onEnterRegion];
+            [self onEnterRegion:region];
             break;
             default:
-                [self onExitRegion];
+            [self onExitRegion];
             break;
         }
     }
@@ -75,20 +76,20 @@ static const NSInteger kBeaconMinorId = 13509;
             forRegion:(ESTBeaconRegion *)region
 {
     if (state == CLRegionStateInside) {
-        [self onEnterRegion];
+        [self onEnterRegion:region];
     } else {
         [self onExitRegion];
     }
 }
 
-- (void)onEnterRegion
+- (void)onEnterRegion:(ESTBeaconRegion *)region
 {
     if (_isEnter) return;
     _isEnter = YES;
  
     [[GPCBackgroundTaskManager sharedInstance] startBackgroundTask];
     
-    [_delegate onEnterRegion];
+    [_delegate onEnterRegion:region];
 }
 
 - (void)onExitRegion

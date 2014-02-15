@@ -34,12 +34,12 @@
 		94EA3B0118AD9B4C003976D8 /* GPCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94EA3B0018AD9B4C003976D8 /* GPCAppDelegate.m */; };
 		94EA3B0418AD9B4C003976D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94EA3B0218AD9B4C003976D8 /* Main.storyboard */; };
 		94EA3B0718AD9B4C003976D8 /* GPCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94EA3B0618AD9B4C003976D8 /* GPCViewController.m */; };
-		94EA3B0918AD9B4C003976D8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94EA3B0818AD9B4C003976D8 /* Images.xcassets */; };
 		94EA3B1018AD9B4C003976D8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94EA3B0F18AD9B4C003976D8 /* XCTest.framework */; };
 		94EA3B1118AD9B4C003976D8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94EA3AF018AD9B4C003976D8 /* Foundation.framework */; };
 		94EA3B1218AD9B4C003976D8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94EA3AF418AD9B4C003976D8 /* UIKit.framework */; };
 		94EA3B1A18AD9B4C003976D8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94EA3B1818AD9B4C003976D8 /* InfoPlist.strings */; };
 		94EA3B1C18AD9B4C003976D8 /* GeliPayClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 94EA3B1B18AD9B4C003976D8 /* GeliPayClientTests.m */; };
+		94F16F2618B019AE00F5A560 /* GPCLocalNotificationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F16F2518B019AE00F5A560 /* GPCLocalNotificationHelper.m */; };
 		94F79FA518AFA681001D5964 /* GPCSoudPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F79FA418AFA681001D5964 /* GPCSoudPlayer.m */; };
 		94F79FA918AFA98C001D5964 /* GPCBeaconUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F79FA818AFA98C001D5964 /* GPCBeaconUtility.m */; };
 		94F79FAC18AFAB49001D5964 /* GPCDeviceInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F79FAB18AFAB49001D5964 /* GPCDeviceInformation.m */; };
@@ -50,6 +50,8 @@
 		94F79FE218AFD133001D5964 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F79FE118AFD133001D5964 /* libxml2.dylib */; };
 		94F79FEC18AFD33D001D5964 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F79FEB18AFD33D001D5964 /* CFNetwork.framework */; };
 		94F79FF218AFD399001D5964 /* libPayPalMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F79FEE18AFD399001D5964 /* libPayPalMobile.a */; };
+		94F79FF518AFF8E2001D5964 /* GPCCountDownTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F79FF418AFF8E2001D5964 /* GPCCountDownTimer.m */; };
+		94F79FF818B006C4001D5964 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94F79FF718B006C4001D5964 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,12 +111,13 @@
 		94EA3B0318AD9B4C003976D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		94EA3B0518AD9B4C003976D8 /* GPCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPCViewController.h; sourceTree = "<group>"; };
 		94EA3B0618AD9B4C003976D8 /* GPCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPCViewController.m; sourceTree = "<group>"; };
-		94EA3B0818AD9B4C003976D8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		94EA3B0E18AD9B4C003976D8 /* GeliPayClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeliPayClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94EA3B0F18AD9B4C003976D8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		94EA3B1718AD9B4C003976D8 /* GeliPayClientTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GeliPayClientTests-Info.plist"; sourceTree = "<group>"; };
 		94EA3B1918AD9B4C003976D8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94EA3B1B18AD9B4C003976D8 /* GeliPayClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeliPayClientTests.m; sourceTree = "<group>"; };
+		94F16F2418B019AE00F5A560 /* GPCLocalNotificationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCLocalNotificationHelper.h; sourceTree = "<group>"; };
+		94F16F2518B019AE00F5A560 /* GPCLocalNotificationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCLocalNotificationHelper.m; sourceTree = "<group>"; };
 		94F79FA318AFA681001D5964 /* GPCSoudPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCSoudPlayer.h; sourceTree = "<group>"; };
 		94F79FA418AFA681001D5964 /* GPCSoudPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCSoudPlayer.m; sourceTree = "<group>"; };
 		94F79FA718AFA98C001D5964 /* GPCBeaconUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPCBeaconUtility.h; path = ../Delegate/GPCBeaconUtility.h; sourceTree = "<group>"; };
@@ -139,6 +142,9 @@
 		94F79FEF18AFD399001D5964 /* PayPalMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PayPalMobile.h; path = "../submodules/PayPal-iOS-SDK/PayPalMobile/PayPalMobile.h"; sourceTree = "<group>"; };
 		94F79FF018AFD399001D5964 /* PayPalPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PayPalPayment.h; path = "../submodules/PayPal-iOS-SDK/PayPalMobile/PayPalPayment.h"; sourceTree = "<group>"; };
 		94F79FF118AFD399001D5964 /* PayPalPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PayPalPaymentViewController.h; path = "../submodules/PayPal-iOS-SDK/PayPalMobile/PayPalPaymentViewController.h"; sourceTree = "<group>"; };
+		94F79FF318AFF8E2001D5964 /* GPCCountDownTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCCountDownTimer.h; sourceTree = "<group>"; };
+		94F79FF418AFF8E2001D5964 /* GPCCountDownTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCCountDownTimer.m; sourceTree = "<group>"; };
+		94F79FF718B006C4001D5964 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,15 +238,13 @@
 				94C69B3318AF565600B45FFE /* GPCNetworking.m */,
 			);
 			name = Network;
-			path = GeliPayClient/Networking;
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		94EA3AE418AD9B4C003976D8 = {
 			isa = PBXGroup;
 			children = (
 				94C69B2D18AF559D00B45FFE /* Submodules */,
-				94C69B2E18AF55B600B45FFE /* Network */,
-				94F79FA218AFA62D001D5964 /* Utility */,
 				94EA3AF618AD9B4C003976D8 /* GeliPayClient */,
 				94EA3B1518AD9B4C003976D8 /* GeliPayClientTests */,
 				94EA3AEF18AD9B4C003976D8 /* Frameworks */,
@@ -287,12 +291,14 @@
 		94EA3AF618AD9B4C003976D8 /* GeliPayClient */ = {
 			isa = PBXGroup;
 			children = (
+				94F79FA218AFA62D001D5964 /* Utility */,
+				94C69B2E18AF55B600B45FFE /* Network */,
+				94F79FF618B004EC001D5964 /* Resources */,
 				94EA3AFF18AD9B4C003976D8 /* GPCAppDelegate.h */,
 				94EA3B0018AD9B4C003976D8 /* GPCAppDelegate.m */,
 				94EA3B0218AD9B4C003976D8 /* Main.storyboard */,
 				94EA3B0518AD9B4C003976D8 /* GPCViewController.h */,
 				94EA3B0618AD9B4C003976D8 /* GPCViewController.m */,
-				94EA3B0818AD9B4C003976D8 /* Images.xcassets */,
 				94EA3AF718AD9B4C003976D8 /* Supporting Files */,
 			);
 			path = GeliPayClient;
@@ -303,6 +309,7 @@
 			children = (
 				94EA3AF818AD9B4C003976D8 /* GeliPayClient-Info.plist */,
 				94EA3AF918AD9B4C003976D8 /* InfoPlist.strings */,
+				94F79FF718B006C4001D5964 /* Images.xcassets */,
 				94EA3AFC18AD9B4C003976D8 /* main.m */,
 				94EA3AFE18AD9B4C003976D8 /* GeliPayClient-Prefix.pch */,
 			);
@@ -340,9 +347,12 @@
 				94F79FAE18AFAC2F001D5964 /* GPCBackgroundTaskManager.m */,
 				94F79FB018AFB2FB001D5964 /* GPCPaymentManager.h */,
 				94F79FB118AFB2FB001D5964 /* GPCPaymentManager.m */,
+				94F79FF318AFF8E2001D5964 /* GPCCountDownTimer.h */,
+				94F79FF418AFF8E2001D5964 /* GPCCountDownTimer.m */,
+				94F16F2418B019AE00F5A560 /* GPCLocalNotificationHelper.h */,
+				94F16F2518B019AE00F5A560 /* GPCLocalNotificationHelper.m */,
 			);
-			name = Utility;
-			path = GeliPayClient/Utility;
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		94F79FED18AFD385001D5964 /* PayPal */ = {
@@ -354,6 +364,14 @@
 				94F79FF118AFD399001D5964 /* PayPalPaymentViewController.h */,
 			);
 			name = PayPal;
+			sourceTree = "<group>";
+		};
+		94F79FF618B004EC001D5964 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -440,7 +458,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94EA3B0918AD9B4C003976D8 /* Images.xcassets in Resources */,
+				94F79FF818B006C4001D5964 /* Images.xcassets in Resources */,
 				94EA3AFB18AD9B4C003976D8 /* InfoPlist.strings in Resources */,
 				94EA3B0418AD9B4C003976D8 /* Main.storyboard in Resources */,
 			);
@@ -465,12 +483,14 @@
 				94C69B2918AF51F500B45FFE /* AFURLConnectionOperation.m in Sources */,
 				94EA3AFD18AD9B4C003976D8 /* main.m in Sources */,
 				94C69B0D18AF341200B45FFE /* UIActionSheet+Blocks.m in Sources */,
+				94F16F2618B019AE00F5A560 /* GPCLocalNotificationHelper.m in Sources */,
 				94F79FAF18AFAC2F001D5964 /* GPCBackgroundTaskManager.m in Sources */,
 				94C69B0C18AF341200B45FFE /* RIButtonItem.m in Sources */,
 				94C69B2B18AF51F500B45FFE /* AFURLResponseSerialization.m in Sources */,
 				94C69B3418AF565600B45FFE /* GPCNetworking.m in Sources */,
 				94C69B2A18AF51F500B45FFE /* AFURLRequestSerialization.m in Sources */,
 				94F79FA918AFA98C001D5964 /* GPCBeaconUtility.m in Sources */,
+				94F79FF518AFF8E2001D5964 /* GPCCountDownTimer.m in Sources */,
 				94C69B2818AF51F500B45FFE /* AFSecurityPolicy.m in Sources */,
 				94C69B2418AF51F500B45FFE /* AFHTTPRequestOperation.m in Sources */,
 				94C69B2C18AF51F500B45FFE /* AFURLSessionManager.m in Sources */,

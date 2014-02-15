@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ESTBeaconRegion.h>
 
 @protocol GPCBeaconUtilityDelegate <NSObject>
-- (void)onEnterRegion;
+- (void)onEnterRegion:(ESTBeaconRegion *)region;
 - (void)onExitRegion;
 @end
 
@@ -20,3 +21,7 @@
 + (id)sharedInstance;
 
 @end
+
+FOUNDATION_EXTERN const NSInteger kBeaconMajorID;
+
+FOUNDATION_EXTERN const NSInteger kBeaconMinorID;

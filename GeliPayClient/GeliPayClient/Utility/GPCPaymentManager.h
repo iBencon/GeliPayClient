@@ -10,8 +10,6 @@
 
 @protocol GPCPaymentManagerDelegate <NSObject>
 
-- (void)willPaid;
-
 - (void)didPaid;
 
 - (void)didCancel;
@@ -24,10 +22,12 @@
 
 + (id)sharedInstance;
 
-- (void)showPaymentAlert;
-
 - (void)dismissPaymentAlert;
 
 - (void)presentPaymentLocalNotification;
 
 @end
+
+FOUNDATION_EXTERN NSString * const kPayPalClientID;
+
+FOUNDATION_EXTERN NSString * const kReceiverEmail;

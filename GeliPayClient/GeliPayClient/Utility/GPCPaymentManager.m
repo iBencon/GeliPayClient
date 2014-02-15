@@ -9,10 +9,15 @@
 #import "GPCPaymentManager.h"
 #import "UIAlertView+Blocks.h"
 #import "PayPalMobile.h"
+#import "GPCLocalNotificationHelper.h"
 
 @interface GPCPaymentManager ()
 @property UIAlertView *paymentAlertView;
 @end
+
+NSString * const kPayPalClientID = @"AaA5HxBf_ZXpaG1JDoYaSi3sl9KxhH9visChFhGG6hD82iDV8sZQr4zOm6WH";
+
+NSString * const kReceiverEmail = @"allegllet.scherzand-facilitator@gmail.com";
 
 @implementation GPCPaymentManager
 
@@ -26,19 +31,6 @@
     return sharedInstance;
 }
 
-- (void)showPaymentAlert
-{
-    RIButtonItem *paymentItem = [RIButtonItem itemWithLabel:@"Pay" action:^{
-        [_delegate willPaid];
-    }];
-    
-    _paymentAlertView = [[UIAlertView alloc] initWithTitle:@"GeliPay"
-                                                   message:@"GeliPayしてください"
-                                          cancelButtonItem:nil
-                                          otherButtonItems:paymentItem, nil];
-    [_paymentAlertView show];
-}
-
 - (void)dismissPaymentAlert
 {
     [_paymentAlertView dismissWithClickedButtonIndex:0 animated:YES];
@@ -46,10 +38,7 @@
 
 - (void)presentPaymentLocalNotification
 {
-    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    [localNotification setAlertBody:@"GeliPayしてください"];
-    [localNotification setSoundName:UILocalNotificationDefaultSoundName];
-    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+    [GPCLocalNotificationHelper simpleLocalNotificationWithBody:@"GeliPayしてください"];
 }
 
 #pragma mark - PayPalPaymentDelegate methods
@@ -67,10 +56,11 @@
 
 - (void)verifyCompletedPayment:(PayPalPayment *)completedPayment {
     // Send the entire confirmation dictionary
+    /*
     NSData *confirmation = [NSJSONSerialization dataWithJSONObject:completedPayment.confirmation
                                                            options:0
                                                              error:nil];
-    
+    */
     // Send confirmation to your server; your server should verify the proof of payment
     // and give the user their goods or services. If the server is not reachable, save
     // the confirmation and try again later.
