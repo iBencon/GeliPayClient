@@ -62,6 +62,7 @@ static GPCCancelableDelayedExecution *instance;
 - (void)execute
 {
     _block();
+    [self setBlock:nil];
 }
 
 - (void)cancel

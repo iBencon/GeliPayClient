@@ -7,12 +7,14 @@
 //
 
 #import "GPCAppDelegate.h"
+#import <AVFoundation/AVFoundation.h>
 
 @implementation GPCAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
     return YES;
 }
 							
