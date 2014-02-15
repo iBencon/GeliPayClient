@@ -6,12 +6,19 @@
 //  Copyright (c) 2014年 iBencon. All rights reserved.
 //
 
+#define OFFLINE = 1
+//#define ONLY_FOREGROUND = 1
+
 #import "GPCViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AdSupport/AdSupport.h>
 #import <ESTBeaconManager.h>
 #import "UIAlertView+Blocks.h"
 #import <AVFoundation/AVFoundation.h>
+#import "AFNetworking.h"
+
+static const NSInteger kBeaconMajorId = 6521;
+static const NSInteger kBeaconMinorId = 13509;
 
 @interface GPCViewController () <ESTBeaconManagerDelegate>
 
@@ -22,9 +29,9 @@
 @property NSTimer                   *repeatSoundTimer;
 @property UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 @property UIAlertView               *paymentAlertView;
+@property BOOL                      isEnter;
 
 @property (strong, nonatomic) IBOutlet UITextView *debugLogView;
-
 @end
 
 @implementation GPCViewController
@@ -34,9 +41,15 @@
     [super viewDidLoad];
     
     [self setupBeacon];
-    
-    NSString *advertisingID = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    NSLog(@">>>>> UUID is ... %@", advertisingID);
+    /*
+    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
+    [manager POST:@"http://ancient-brushlands-9645.herokuapp.com/post" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"response: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+     */
+
 }
 
 - (void)setupBeacon
@@ -45,11 +58,13 @@
     [_beaconManager setDelegate:self];
     [_beaconManager setAvoidUnknownStateBeacons:YES];
     ESTBeaconRegion *region = [[ESTBeaconRegion alloc] initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID
-                                                                       major:6521
-                                                                       minor:13509
                                                                   identifier:@"jp.co.GeliPayClient.iBencon"];
+#ifdef ONLY_FOREGROUND
+    [_beaconManager startRangingBeaconsInRegion:region];
+#else
     [_beaconManager startMonitoringForRegion:region];
     [_beaconManager requestStateForRegion:region];
+#endif
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,7 +72,7 @@
     [super didReceiveMemoryWarning];
 }
 
-static const CGFloat kPlaySoundDelayTime = 10.0f;
+static const CGFloat kPlaySoundDelayTime = 5.0f;
 - (void)notifyAndStartCountDown
 {
     _delayedSoundTimer = [NSTimer scheduledTimerWithTimeInterval:kPlaySoundDelayTime
@@ -112,6 +127,7 @@ static const CGFloat kSoundRepetInterval = 2.0f;
 
 - (void)payment
 {
+    [self showLog:@">>>>> Paid"];
     [_delayedSoundTimer invalidate];
     [_repeatSoundTimer invalidate];
     
@@ -130,6 +146,11 @@ static const CGFloat kSoundRepetInterval = 2.0f;
     [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
 }
 
+- (NSString *)uniqueId
+{
+    return [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+}
+
 #pragma mark -Debug
 
 - (void)showLog:(NSString *)log
@@ -140,10 +161,37 @@ static const CGFloat kSoundRepetInterval = 2.0f;
 
 - (IBAction)onDebugButtonTapped:(id)sender
 {
+    [self startBackgroundTask];
     [self onExitRegion];
 }
 
 #pragma mark - Estimote
+
+- (void)beaconManager:(ESTBeaconManager *)manager
+      didRangeBeacons:(NSArray *)beacons
+             inRegion:(ESTBeaconRegion *)region
+{
+    static BOOL isEnter = NO;
+    if([beacons count] > 0) {
+        ESTBeacon *selectedBeacon = beacons[0];
+        
+        switch (selectedBeacon.proximity)
+        {
+            case CLProximityImmediate:
+            if (!isEnter) {
+                isEnter = YES;
+                [self onEnterRegion];
+            }
+            break;
+            default:
+            if (isEnter) {
+                isEnter = NO;
+                [self onExitRegion];
+            }
+            break;
+        }
+    }
+}
 
 - (void)beaconManager:(ESTBeaconManager *)manager
     didDetermineState:(CLRegionState)state
@@ -159,8 +207,22 @@ static const CGFloat kSoundRepetInterval = 2.0f;
 static const CGFloat kNotifyAndStartCountDownTime = 5.0f;
 - (void)onEnterRegion
 {
-    [self showLog:@">>>>> onEnterRegion"];
     
+    [self showLog:@">>>>> onEnterRegion"];
+
+    if (_isEnter) return;
+    _isEnter = YES;
+    
+#ifndef OFFLINE
+    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary* param = @{@"devise_id" : [NSString stringWithFormat:@"%ld-%ld", (long)kBeaconMajorId, (long)kBeaconMinorId],
+                            @"uid" : [self uniqueId]};
+    [manager POST:@"http://gelipay.herokuapp.com/users.json" parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"response: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+#endif
     [self startBackgroundTask];
     
     _delayedNotificationTimer = [NSTimer scheduledTimerWithTimeInterval:kNotifyAndStartCountDownTime
@@ -174,6 +236,18 @@ static const CGFloat kNotifyAndStartCountDownTime = 5.0f;
 {
     [self showLog:@">>>>> onExitRegion"];
     
+    if (!_isEnter) return;
+    _isEnter = NO;
+    
+#ifndef OFFLINE
+    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary* param = @{@"uid" : [self uniqueId]};
+    [manager DELETE:@"http://gelipay.herokuapp.com/users/exit.json" parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"response: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+#endif
     [_delayedNotificationTimer invalidate];
     [_delayedSoundTimer invalidate];
     [_repeatSoundTimer invalidate];

@@ -4,3 +4,6 @@
 [submodule "submodules/UIAlertView-Blocks"]
 	path = submodules/UIAlertView-Blocks
 	url = git@github.com:jivadevoe/UIAlertView-Blocks.git
+[submodule "submodules/AFNetworking"]
+	path = submodules/AFNetworking
+	url = git@github.com:AFNetworking/AFNetworking.git
