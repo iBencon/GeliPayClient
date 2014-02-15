@@ -10,7 +10,11 @@
 
 @protocol GPCPaymentManagerDelegate <NSObject>
 
+- (void)willPaid;
+
 - (void)didPaid;
+
+- (void)didCancel;
 
 @end
 

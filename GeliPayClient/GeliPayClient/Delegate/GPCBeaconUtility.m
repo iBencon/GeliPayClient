@@ -40,35 +40,31 @@ static const NSInteger kBeaconMinorId = 13509;
     [_beaconManager setAvoidUnknownStateBeacons:YES];
     ESTBeaconRegion *region = [[ESTBeaconRegion alloc] initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID
                                                                   identifier:@"jp.co.GeliPayClient.iBencon"];
-#ifdef ONLY_FOREGROUND
+//#ifdef ONLY_FOREGROUND
     [_beaconManager startRangingBeaconsInRegion:region];
-#else
+//#else
     [_beaconManager startMonitoringForRegion:region];
     [_beaconManager requestStateForRegion:region];
-#endif
+//#endif
 }
 
 - (void)beaconManager:(ESTBeaconManager *)manager
       didRangeBeacons:(NSArray *)beacons
              inRegion:(ESTBeaconRegion *)region
 {
-    static BOOL isEnter = NO;
     if([beacons count] > 0) {
         ESTBeacon *selectedBeacon = beacons[0];
         
         switch (selectedBeacon.proximity)
         {
-            case CLProximityImmediate:
-            if (!isEnter) {
-                isEnter = YES;
+            case CLProximityNear:
                 [self onEnterRegion];
-            }
+            break;
+            case CLProximityImmediate:
+                [self onEnterRegion];
             break;
             default:
-            if (isEnter) {
-                isEnter = NO;
                 [self onExitRegion];
-            }
             break;
         }
     }

@@ -7,3 +7,6 @@
 [submodule "submodules/AFNetworking"]
 	path = submodules/AFNetworking
 	url = git@github.com:AFNetworking/AFNetworking.git
+[submodule "submodules/PayPal-iOS-SDK"]
+	path = submodules/PayPal-iOS-SDK
+	url = git@github.com:paypal/PayPal-iOS-SDK.git
