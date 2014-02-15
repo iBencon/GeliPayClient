@@ -8,6 +8,7 @@
 
 #import "GPCViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import <AdSupport/AdSupport.h>
 
 @interface GPCViewController ()
 @property NSTimer *startCountDownTimer;
@@ -20,6 +21,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSString *advertisingID = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    NSLog(@">>>>> UUID is ... %@", advertisingID);
+    
     UIApplication* app = [UIApplication sharedApplication];
     
     NSLog(@">>>>> Start Background Task.");
