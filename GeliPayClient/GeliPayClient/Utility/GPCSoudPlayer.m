@@ -27,9 +27,10 @@
     return sharedInstance;
 }
 
-static const CGFloat kSoundRepetInterval = 2.0f;
+static const CGFloat kSoundRepetInterval = 3.0f;
 - (void)startRepeat
 {
+    [self playSound];
     _repeatSoundTimer = [NSTimer scheduledTimerWithTimeInterval:kSoundRepetInterval
                                                          target:self
                                                        selector:@selector(playSound)
@@ -47,8 +48,9 @@ static const CGFloat kSoundRepetInterval = 2.0f;
 - (void)playSound
 {
     AVSpeechSynthesizer* speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
-    NSString* speakingText = @"私はトイレが長いです。";
+    NSString* speakingText = @"私のトイレは長いです。";
     AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:speakingText];
+    [utterance setRate:0.3];
     [speechSynthesizer speakUtterance:utterance];
 }
 

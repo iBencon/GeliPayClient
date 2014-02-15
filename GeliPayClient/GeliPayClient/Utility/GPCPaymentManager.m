@@ -9,6 +9,7 @@
 #import "GPCPaymentManager.h"
 #import "UIAlertView+Blocks.h"
 #import "PayPalMobile.h"
+#import "GPCLocalNotificationHelper.h"
 
 @interface GPCPaymentManager ()
 @property UIAlertView *paymentAlertView;
@@ -30,19 +31,6 @@ NSString * const kReceiverEmail = @"allegllet.scherzand-facilitator@gmail.com";
     return sharedInstance;
 }
 
-- (void)showPaymentAlert
-{
-    RIButtonItem *paymentItem = [RIButtonItem itemWithLabel:@"Pay" action:^{
-        [_delegate willPaid];
-    }];
-    
-    _paymentAlertView = [[UIAlertView alloc] initWithTitle:@"GeliPay"
-                                                   message:@"GeliPayしてください"
-                                          cancelButtonItem:nil
-                                          otherButtonItems:paymentItem, nil];
-    [_paymentAlertView show];
-}
-
 - (void)dismissPaymentAlert
 {
     [_paymentAlertView dismissWithClickedButtonIndex:0 animated:YES];
@@ -50,10 +38,7 @@ NSString * const kReceiverEmail = @"allegllet.scherzand-facilitator@gmail.com";
 
 - (void)presentPaymentLocalNotification
 {
-    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    [localNotification setAlertBody:@"GeliPayしてください"];
-    [localNotification setSoundName:UILocalNotificationDefaultSoundName];
-    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+    [GPCLocalNotificationHelper simpleLocalNotificationWithBody:@"GeliPayしてください"];
 }
 
 #pragma mark - PayPalPaymentDelegate methods

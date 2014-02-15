@@ -10,8 +10,6 @@
 
 @protocol GPCPaymentManagerDelegate <NSObject>
 
-- (void)willPaid;
-
 - (void)didPaid;
 
 - (void)didCancel;
@@ -23,8 +21,6 @@
 @property (weak) id <GPCPaymentManagerDelegate> delegate;
 
 + (id)sharedInstance;
-
-- (void)showPaymentAlert;
 
 - (void)dismissPaymentAlert;
 

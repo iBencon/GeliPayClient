@@ -31,7 +31,7 @@
 }
 
 
-NSTimeInterval kUpdateTimeInterval = 0.1f;
+NSTimeInterval kUpdateTimeInterval = 0.5f;
 - (void)executeBlock:(GPCCountDownTimerExecuteBlock)executeBlock
           afterDelay:(NSTimeInterval)afterDelay
             delegate:(id<GPCCountDownTimerDelegate>)delegate
@@ -52,6 +52,7 @@ NSTimeInterval kUpdateTimeInterval = 0.1f;
     if ([self restTime] > 0) {
         [_delegate onUpdateTime:[self restTime]];
     } else {
+        [_updateTimer invalidate];
         [self execute];
     }
 }
@@ -64,6 +65,7 @@ NSTimeInterval kUpdateTimeInterval = 0.1f;
 - (void)execute
 {
     _executeBlock();
+    [self setExecuteBlock:nil];
 }
 
 - (NSTimeInterval)restTime

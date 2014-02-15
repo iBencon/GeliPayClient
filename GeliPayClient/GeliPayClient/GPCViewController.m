@@ -18,17 +18,48 @@
 #import "GPCDeviceInformation.h"
 #import "PayPalMobile.h"
 #import "GPCCountDownTimer.h"
+#import "GPCLocalNotificationHelper.h"
+
+typedef NS_ENUM(NSInteger, ToiletStatus)
+{
+    ToiletStatusLogout,
+    ToiletStatusLogin,
+    ToiletStatusTooLong,
+    ToiletStatusPaid
+};
 
 @interface GPCViewController () <GPCBeaconUtilityDelegate, GPCPaymentManagerDelegate, GPCCountDownTimerDelegate>
 
 @property NSTimer                   *delayedNotificationTimer;
-@property NSTimer                   *delayedSoundTimer;
 @property UIAlertView               *paymentAlertView;
 
-@property (strong, nonatomic) IBOutlet UITextView *debugLogView;
+@property (strong, nonatomic) IBOutlet UILabel *logoLabel;
+@property (strong, nonatomic) IBOutlet UIImageView  *statusImage;
+@property (strong, nonatomic) IBOutlet UILabel      *informationLabel;
+@property (strong, nonatomic) IBOutlet UIButton     *paymentButton;
+@property (strong, nonatomic) IBOutlet UITextView   *debugLogView;
+
 @end
 
 @implementation GPCViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [[GPCBeaconUtility sharedInstance] setDelegate:self];
+    [[GPCPaymentManager sharedInstance] setDelegate:self];
+    [self updateUI:ToiletStatusLogout];
+    [_statusImage setContentMode:UIViewContentModeScaleAspectFit];
+    [self lotationLogo3D];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+
+- (void)willEnterForeground
+{
+    [self lotationLogo3D];
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -37,17 +68,25 @@
     [PayPalPaymentViewController prepareForPaymentUsingClientId:kPayPalClientID];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    [[GPCBeaconUtility sharedInstance] setDelegate:self];
-    [[GPCPaymentManager sharedInstance] setDelegate:self];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (void)lotationLogo3D
+{
+    CABasicAnimation* animation = [CABasicAnimation
+                                   animationWithKeyPath:@"transform.rotation.x"];
+    animation.fromValue = @(0);
+    animation.toValue = @(2 * M_PI);
+    animation.repeatCount = INFINITY;
+    animation.duration = 15.0;
+    
+    [self.logoLabel.layer addAnimation:animation forKey:@"rotation"];
+    
+    CATransform3D transform = CATransform3DIdentity;
+    transform.m34 = 1.0 / 500.0;
+    self.logoLabel.layer.transform = transform;
 }
 
 static const CGFloat kPlaySoundDelayTime = 5.0f;
@@ -55,19 +94,51 @@ static const CGFloat kPlaySoundDelayTime = 5.0f;
 {
     [[GPCCountDownTimer sharedInstance] executeBlock:^{
         [[GPCSoudPlayer sharedInstance] startRepeat];
+        [self updateUI:ToiletStatusTooLong];
     }
                                           afterDelay:kPlaySoundDelayTime
-                                            delegate:self];
+                                        delegate:self];
     [[GPCPaymentManager sharedInstance] presentPaymentLocalNotification];
-    [[GPCPaymentManager sharedInstance] showPaymentAlert];
+}
+
+- (IBAction)onPaymentTapped:(id)sender {
+    [self presentPaymentViewController];
+}
+
+- (void)updateUI:(ToiletStatus)status
+{
+
+    switch (status) {
+        case ToiletStatusLogout:
+            [_statusImage setImage:[UIImage imageNamed:@"logout"]];
+            [_paymentButton setHidden:YES];
+            [_informationLabel setText:@"ログアウト中"];
+            break;
+        case ToiletStatusLogin:
+            [_statusImage setImage:[UIImage imageNamed:@"login"]];
+            [_paymentButton setHidden:YES];
+            [_informationLabel setText:@"ログイン中"];
+            break;
+        case ToiletStatusTooLong:
+            [_statusImage setImage:[UIImage imageNamed:@"login"]];
+            [_paymentButton setHidden:NO];
+            [_informationLabel setText:@"長居しています"];
+            break;
+        case ToiletStatusPaid:
+            [_statusImage setImage:[UIImage imageNamed:@"login"]];
+            [_paymentButton setHidden:YES];
+            [_informationLabel setText:@"ごゆっくり"];
+            break;
+    }
 }
 
 #pragma mark -Debug
 
 - (void)showLog:(NSString *)log
 {
-    [_debugLogView setText:[[_debugLogView text] stringByAppendingString:[NSString stringWithFormat:@"%@\n", log]]];
-    
+    //[_debugLogView setText:[[_debugLogView text] stringByAppendingString:[NSString stringWithFormat:@"%@\n", log]]];
+    [_debugLogView setText:[NSString stringWithFormat:@"%@", log]];
+
 }
 
 - (IBAction)onDebugButtonTapped:(id)sender
@@ -80,7 +151,8 @@ static const CGFloat kPlaySoundDelayTime = 5.0f;
 
 - (void)onUpdateTime:(NSTimeInterval)restTime
 {
-    NSLog(@"%f", restTime);
+    NSInteger integerTime = (NSInteger)roundf(restTime);
+    [_informationLabel setText:[NSString stringWithFormat:@"残り %d秒",integerTime]];
 }
 
 #pragma mark - Estimote Delegate
@@ -90,14 +162,22 @@ static const CGFloat kNotifyAndStartCountDownTime = 5.0f;
 {
     [self showLog:@">>>>> onEnterRegion"];
     
+    [GPCLocalNotificationHelper simpleLocalNotificationWithBody:@"トイレにログインしました"];
+    
+    [self updateUI:ToiletStatusLogin];
+    
 #ifndef OFFLINE
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     NSDictionary* param = @{@"devise_id" : [NSString stringWithFormat:@"%@-%@", [region major], [region minor]],
                             @"uid" : [GPCDeviceInformation uniqueID]};
     [manager POST:@"http://gelipay.herokuapp.com/users.json" parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"response: %@", responseObject);
+        if ([responseObject count] == 1) {
+            [self showLog:@">>>>> API Error (users)"];
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
+        [self showLog:@">>>>> API Error (users)"];
     }];
 #endif
     
@@ -112,6 +192,10 @@ static const CGFloat kNotifyAndStartCountDownTime = 5.0f;
 {
     [self showLog:@">>>>> onExitRegion"];
     
+    [GPCLocalNotificationHelper simpleLocalNotificationWithBody:@"トイレからログアウトしました"];
+    
+    [self updateUI:ToiletStatusLogout];
+
 #ifndef OFFLINE
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     NSDictionary* param = @{@"uid" : [GPCDeviceInformation uniqueID]};
@@ -123,17 +207,18 @@ static const CGFloat kNotifyAndStartCountDownTime = 5.0f;
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@">>>>> Error: %@", error);
+                [self showLog:@">>>>> API Error (users/exit)"];
     }];
 #endif
+    [[GPCCountDownTimer sharedInstance] cancel];
     [_delayedNotificationTimer invalidate];
-    [_delayedSoundTimer invalidate];
     [[GPCPaymentManager sharedInstance] dismissPaymentAlert];
     [[GPCSoudPlayer sharedInstance] stop];
 }
 
 #pragma mark - Payment Delegate
 
--(void)willPaid
+-(void)presentPaymentViewController
 {
     PayPalPayment *payment = [[PayPalPayment alloc] init];
     payment.amount = [[NSDecimalNumber alloc] initWithString:@"39.95"];
@@ -164,23 +249,26 @@ static const CGFloat kNotifyAndStartCountDownTime = 5.0f;
     
 #ifndef OFFLINE
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary* param = @{@"devise_id" : [NSString stringWithFormat:@"%d-%d", kBeaconMajorID, kBeaconMinorID],
+    NSDictionary* param = @{@"devise_id" : [NSString stringWithFormat:@"%ld-%d", (long)kBeaconMajorID, kBeaconMinorID],
                             @"uid" : [GPCDeviceInformation uniqueID]};
     [manager POST:@"http://gelipay.herokuapp.com/users/pay.json" parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@">>>>> Response: %@", responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@">>>>> Error: %@", error);
+        [self showLog:@">>>>> API Error (users/pay)"];
     }];
 #endif
-    [_delayedSoundTimer invalidate];
+    [[GPCCountDownTimer sharedInstance] cancel];
     [[GPCSoudPlayer sharedInstance] stop];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self updateUI:ToiletStatusPaid];
+    }];
 }
 
 - (void)didCancel
 {
     [self dismissViewControllerAnimated:YES completion:^{
-        [[GPCPaymentManager sharedInstance] showPaymentAlert];
+        [self updateUI:ToiletStatusTooLong];
     }];
 }
 
