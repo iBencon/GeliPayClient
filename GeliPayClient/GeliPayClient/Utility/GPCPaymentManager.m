@@ -25,11 +25,6 @@
     return sharedInstance;
 }
 
-- (void)notifyPaymentAfterDelay:(NSTimeInterval)afterDelay
-{
-    
-}
-
 - (void)showPaymentAlert
 {
     RIButtonItem *paymentItem = [RIButtonItem itemWithLabel:@"Pay" action:^{

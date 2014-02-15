@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 iBencon. All rights reserved.
 //
 
-#define OFFLINE = 1
-//#define ONLY_FOREGROUND = 1
+//#define OFFLINE = 1
+#define ONLY_FOREGROUND = 1
 
 #import "GPCViewController.h"
 #import "AFNetworking.h"
@@ -15,6 +15,7 @@
 #import "GPCBeaconUtility.h"
 #import "GPCPaymentManager.h"
 #import "GPCBackgroundTaskManager.h"
+#import "GPCDeviceInformation.h"
 
 static const NSInteger kBeaconMajorId = 6521;
 static const NSInteger kBeaconMinorId = 13509;
@@ -79,7 +80,7 @@ static const CGFloat kNotifyAndStartCountDownTime = 5.0f;
 #ifndef OFFLINE
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     NSDictionary* param = @{@"devise_id" : [NSString stringWithFormat:@"%ld-%ld", (long)kBeaconMajorId, (long)kBeaconMinorId],
-                            @"uid" : [self uniqueId]};
+                            @"uid" : [GPCDeviceInformation uniqueID]};
     [manager POST:@"http://gelipay.herokuapp.com/users.json" parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"response: %@", responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -87,6 +88,11 @@ static const CGFloat kNotifyAndStartCountDownTime = 5.0f;
     }];
 #endif
     
+    _delayedNotificationTimer = [NSTimer scheduledTimerWithTimeInterval:kNotifyAndStartCountDownTime
+                                                                 target:self
+                                                               selector:@selector(notifyAndPlaySoundAfterDelay)
+                                                               userInfo:nil
+                                                                repeats:NO];
 }
 
 - (void)onExitRegion
@@ -95,11 +101,15 @@ static const CGFloat kNotifyAndStartCountDownTime = 5.0f;
     
 #ifndef OFFLINE
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary* param = @{@"uid" : [self uniqueId]};
-    [manager DELETE:@"http://gelipay.herokuapp.com/users/exit.json" parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"response: %@", responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+    NSDictionary* param = @{@"uid" : [GPCDeviceInformation uniqueID]};
+    [manager DELETE:@"http://gelipay.herokuapp.com/users/exit.json"
+         parameters:param
+            success:^(AFHTTPRequestOperation *operation, id responseObject)
+            {
+                NSLog(@"response: %@", responseObject);
+            }
+            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
     }];
 #endif
     [_delayedNotificationTimer invalidate];
@@ -112,6 +122,16 @@ static const CGFloat kNotifyAndStartCountDownTime = 5.0f;
 -(void)didPaid
 {
     [self showLog:@">>>>> Paid"];
+#ifndef OFFLINE
+    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary* param = @{@"devise_id" : [NSString stringWithFormat:@"%ld-%ld", (long)kBeaconMajorId, (long)kBeaconMinorId],
+                            @"uid" : [GPCDeviceInformation uniqueID]};
+    [manager POST:@"http://gelipay.herokuapp.com/users/pay.json" parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"response: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+#endif
     [_delayedSoundTimer invalidate];
     [[GPCSoudPlayer sharedInstance] stop];
 }

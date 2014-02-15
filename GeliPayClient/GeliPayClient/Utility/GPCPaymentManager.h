@@ -20,8 +20,6 @@
 
 + (id)sharedInstance;
 
-- (void)notifyPaymentAfterDelay:(NSTimeInterval)afterDelay;
-
 - (void)showPaymentAlert;
 
 - (void)dismissPaymentAlert;
