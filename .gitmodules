@@ -1,3 +1,6 @@
 [submodule "submodules/EstimoteSDK"]
 	path = submodules/EstimoteSDK
 	url = git@github.com:Estimote/iOS-SDK.git
+[submodule "submodules/UIAlertView-Blocks"]
+	path = submodules/UIAlertView-Blocks
+	url = git@github.com:jivadevoe/UIAlertView-Blocks.git
