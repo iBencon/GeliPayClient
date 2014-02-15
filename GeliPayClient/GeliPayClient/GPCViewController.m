@@ -17,8 +17,9 @@
 #import "GPCBackgroundTaskManager.h"
 #import "GPCDeviceInformation.h"
 #import "PayPalMobile.h"
+#import "GPCCountDownTimer.h"
 
-@interface GPCViewController () <GPCBeaconUtilityDelegate, GPCPaymentManagerDelegate>
+@interface GPCViewController () <GPCBeaconUtilityDelegate, GPCPaymentManagerDelegate, GPCCountDownTimerDelegate>
 
 @property NSTimer                   *delayedNotificationTimer;
 @property NSTimer                   *delayedSoundTimer;
@@ -52,11 +53,11 @@
 static const CGFloat kPlaySoundDelayTime = 5.0f;
 - (void)notifyAndPlaySoundAfterDelay
 {
-    _delayedSoundTimer = [NSTimer scheduledTimerWithTimeInterval:kPlaySoundDelayTime
-                                                       target:[GPCSoudPlayer sharedInstance]
-                                                     selector:@selector(start)
-                                                     userInfo:nil
-                                                         repeats:NO];
+    [[GPCCountDownTimer sharedInstance] executeBlock:^{
+        [[GPCSoudPlayer sharedInstance] startRepeat];
+    }
+                                          afterDelay:kPlaySoundDelayTime
+                                            delegate:self];
     [[GPCPaymentManager sharedInstance] presentPaymentLocalNotification];
     [[GPCPaymentManager sharedInstance] showPaymentAlert];
 }
@@ -75,7 +76,14 @@ static const CGFloat kPlaySoundDelayTime = 5.0f;
     [self onExitRegion];
 }
 
-#pragma mark - Estimote
+#pragma mark - Countdown Timer Delegate
+
+- (void)onUpdateTime:(NSTimeInterval)restTime
+{
+    NSLog(@"%f", restTime);
+}
+
+#pragma mark - Estimote Delegate
 
 static const CGFloat kNotifyAndStartCountDownTime = 5.0f;
 - (void)onEnterRegion:(ESTBeaconRegion *)region
@@ -123,7 +131,7 @@ static const CGFloat kNotifyAndStartCountDownTime = 5.0f;
     [[GPCSoudPlayer sharedInstance] stop];
 }
 
-#pragma mark - Payment
+#pragma mark - Payment Delegate
 
 -(void)willPaid
 {

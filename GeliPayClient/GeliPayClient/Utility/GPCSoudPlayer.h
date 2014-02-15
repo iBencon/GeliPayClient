@@ -12,7 +12,7 @@
 
 + (id)sharedInstance;
 
-- (void)start;
+- (void)startRepeat;
 
 - (void)stop;
 

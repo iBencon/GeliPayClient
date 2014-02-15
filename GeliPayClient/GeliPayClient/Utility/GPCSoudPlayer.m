@@ -28,7 +28,7 @@
 }
 
 static const CGFloat kSoundRepetInterval = 2.0f;
-- (void)start
+- (void)startRepeat
 {
     _repeatSoundTimer = [NSTimer scheduledTimerWithTimeInterval:kSoundRepetInterval
                                                          target:self

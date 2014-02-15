@@ -50,6 +50,7 @@
 		94F79FE218AFD133001D5964 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F79FE118AFD133001D5964 /* libxml2.dylib */; };
 		94F79FEC18AFD33D001D5964 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F79FEB18AFD33D001D5964 /* CFNetwork.framework */; };
 		94F79FF218AFD399001D5964 /* libPayPalMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F79FEE18AFD399001D5964 /* libPayPalMobile.a */; };
+		94F79FF518AFF8E2001D5964 /* GPCCountDownTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F79FF418AFF8E2001D5964 /* GPCCountDownTimer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,8 @@
 		94F79FEF18AFD399001D5964 /* PayPalMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PayPalMobile.h; path = "../submodules/PayPal-iOS-SDK/PayPalMobile/PayPalMobile.h"; sourceTree = "<group>"; };
 		94F79FF018AFD399001D5964 /* PayPalPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PayPalPayment.h; path = "../submodules/PayPal-iOS-SDK/PayPalMobile/PayPalPayment.h"; sourceTree = "<group>"; };
 		94F79FF118AFD399001D5964 /* PayPalPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PayPalPaymentViewController.h; path = "../submodules/PayPal-iOS-SDK/PayPalMobile/PayPalPaymentViewController.h"; sourceTree = "<group>"; };
+		94F79FF318AFF8E2001D5964 /* GPCCountDownTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCCountDownTimer.h; sourceTree = "<group>"; };
+		94F79FF418AFF8E2001D5964 /* GPCCountDownTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCCountDownTimer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,6 +343,8 @@
 				94F79FAE18AFAC2F001D5964 /* GPCBackgroundTaskManager.m */,
 				94F79FB018AFB2FB001D5964 /* GPCPaymentManager.h */,
 				94F79FB118AFB2FB001D5964 /* GPCPaymentManager.m */,
+				94F79FF318AFF8E2001D5964 /* GPCCountDownTimer.h */,
+				94F79FF418AFF8E2001D5964 /* GPCCountDownTimer.m */,
 			);
 			name = Utility;
 			path = GeliPayClient/Utility;
@@ -471,6 +476,7 @@
 				94C69B3418AF565600B45FFE /* GPCNetworking.m in Sources */,
 				94C69B2A18AF51F500B45FFE /* AFURLRequestSerialization.m in Sources */,
 				94F79FA918AFA98C001D5964 /* GPCBeaconUtility.m in Sources */,
+				94F79FF518AFF8E2001D5964 /* GPCCountDownTimer.m in Sources */,
 				94C69B2818AF51F500B45FFE /* AFSecurityPolicy.m in Sources */,
 				94C69B2418AF51F500B45FFE /* AFHTTPRequestOperation.m in Sources */,
 				94C69B2C18AF51F500B45FFE /* AFURLSessionManager.m in Sources */,
