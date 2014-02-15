@@ -46,6 +46,10 @@
 		94F79FAF18AFAC2F001D5964 /* GPCBackgroundTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F79FAE18AFAC2F001D5964 /* GPCBackgroundTaskManager.m */; };
 		94F79FB218AFB2FB001D5964 /* GPCPaymentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F79FB118AFB2FB001D5964 /* GPCPaymentManager.m */; };
 		94F79FDA18AFC0E3001D5964 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F79FD918AFC0E3001D5964 /* MessageUI.framework */; };
+		94F79FDC18AFD11C001D5964 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F79FDB18AFD11C001D5964 /* AVFoundation.framework */; };
+		94F79FE218AFD133001D5964 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F79FE118AFD133001D5964 /* libxml2.dylib */; };
+		94F79FEC18AFD33D001D5964 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F79FEB18AFD33D001D5964 /* CFNetwork.framework */; };
+		94F79FF218AFD399001D5964 /* libPayPalMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F79FEE18AFD399001D5964 /* libPayPalMobile.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +126,19 @@
 		94F79FB018AFB2FB001D5964 /* GPCPaymentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCPaymentManager.h; sourceTree = "<group>"; };
 		94F79FB118AFB2FB001D5964 /* GPCPaymentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCPaymentManager.m; sourceTree = "<group>"; };
 		94F79FD918AFC0E3001D5964 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		94F79FDB18AFD11C001D5964 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		94F79FDD18AFD126001D5964 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		94F79FDF18AFD12B001D5964 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		94F79FE118AFD133001D5964 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		94F79FE318AFD16F001D5964 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		94F79FE518AFD176001D5964 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		94F79FE718AFD17B001D5964 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		94F79FE918AFD182001D5964 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		94F79FEB18AFD33D001D5964 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		94F79FEE18AFD399001D5964 /* libPayPalMobile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPayPalMobile.a; path = "../submodules/PayPal-iOS-SDK/PayPalMobile/libPayPalMobile.a"; sourceTree = "<group>"; };
+		94F79FEF18AFD399001D5964 /* PayPalMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PayPalMobile.h; path = "../submodules/PayPal-iOS-SDK/PayPalMobile/PayPalMobile.h"; sourceTree = "<group>"; };
+		94F79FF018AFD399001D5964 /* PayPalPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PayPalPayment.h; path = "../submodules/PayPal-iOS-SDK/PayPalMobile/PayPalPayment.h"; sourceTree = "<group>"; };
+		94F79FF118AFD399001D5964 /* PayPalPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PayPalPaymentViewController.h; path = "../submodules/PayPal-iOS-SDK/PayPalMobile/PayPalPaymentViewController.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,15 +146,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94F79FEC18AFD33D001D5964 /* CFNetwork.framework in Frameworks */,
+				94EA3AF518AD9B4C003976D8 /* UIKit.framework in Frameworks */,
+				94DFB97818AF245B007BFAAA /* SystemConfiguration.framework in Frameworks */,
+				94F79FE218AFD133001D5964 /* libxml2.dylib in Frameworks */,
+				94F79FF218AFD399001D5964 /* libPayPalMobile.a in Frameworks */,
+				94F79FDC18AFD11C001D5964 /* AVFoundation.framework in Frameworks */,
 				94F79FDA18AFC0E3001D5964 /* MessageUI.framework in Frameworks */,
 				94DFB97C18AF2470007BFAAA /* CoreLocation.framework in Frameworks */,
 				94DFB97A18AF2467007BFAAA /* CoreBluetooth.framework in Frameworks */,
-				94DFB97818AF245B007BFAAA /* SystemConfiguration.framework in Frameworks */,
 				94DFB97618AF20A9007BFAAA /* AdSupport.framework in Frameworks */,
 				94DFB97418AF1BE3007BFAAA /* AudioToolbox.framework in Frameworks */,
 				94EA3AF318AD9B4C003976D8 /* CoreGraphics.framework in Frameworks */,
 				94DFB97E18AF2499007BFAAA /* libEstimoteSDK.a in Frameworks */,
-				94EA3AF518AD9B4C003976D8 /* UIKit.framework in Frameworks */,
 				94EA3AF118AD9B4C003976D8 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,6 +218,7 @@
 		94C69B2D18AF559D00B45FFE /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				94F79FED18AFD385001D5964 /* PayPal */,
 				94C69B1018AF51DD00B45FFE /* AFNetworking */,
 				94C69B0418AF33EF00B45FFE /* UIAlertViewBlocks */,
 			);
@@ -238,6 +260,15 @@
 		94EA3AEF18AD9B4C003976D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				94F79FEB18AFD33D001D5964 /* CFNetwork.framework */,
+				94F79FE918AFD182001D5964 /* Security.framework */,
+				94F79FE718AFD17B001D5964 /* QuartzCore.framework */,
+				94F79FE518AFD176001D5964 /* OpenGLES.framework */,
+				94F79FE318AFD16F001D5964 /* MobileCoreServices.framework */,
+				94F79FE118AFD133001D5964 /* libxml2.dylib */,
+				94F79FDF18AFD12B001D5964 /* CoreVideo.framework */,
+				94F79FDD18AFD126001D5964 /* CoreMedia.framework */,
+				94F79FDB18AFD11C001D5964 /* AVFoundation.framework */,
 				94F79FD918AFC0E3001D5964 /* MessageUI.framework */,
 				94DFB97D18AF2499007BFAAA /* libEstimoteSDK.a */,
 				94DFB97B18AF2470007BFAAA /* CoreLocation.framework */,
@@ -312,6 +343,17 @@
 			);
 			name = Utility;
 			path = GeliPayClient/Utility;
+			sourceTree = "<group>";
+		};
+		94F79FED18AFD385001D5964 /* PayPal */ = {
+			isa = PBXGroup;
+			children = (
+				94F79FEE18AFD399001D5964 /* libPayPalMobile.a */,
+				94F79FEF18AFD399001D5964 /* PayPalMobile.h */,
+				94F79FF018AFD399001D5964 /* PayPalPayment.h */,
+				94F79FF118AFD399001D5964 /* PayPalPaymentViewController.h */,
+			);
+			name = PayPal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -577,9 +619,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/nishiyama_y/Workspace/hackday/GeliPayClient/submodules/EstimoteSDK/EstimoteSDK,
-					"/Users/nishiyama_y/Workspace/hackday/GeliPayClient/submodules/BlocksKit-iOS\\ 2.0.0",
+					"/Users/nishiyama_y/Workspace/hackday/GeliPayClient/submodules/PayPal-iOS-SDK/PayPalMobile",
 				);
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -601,9 +646,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/nishiyama_y/Workspace/hackday/GeliPayClient/submodules/EstimoteSDK/EstimoteSDK,
-					"/Users/nishiyama_y/Workspace/hackday/GeliPayClient/submodules/BlocksKit-iOS\\ 2.0.0",
+					"/Users/nishiyama_y/Workspace/hackday/GeliPayClient/submodules/PayPal-iOS-SDK/PayPalMobile",
 				);
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

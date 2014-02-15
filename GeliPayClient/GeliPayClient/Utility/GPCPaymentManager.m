@@ -8,6 +8,7 @@
 
 #import "GPCPaymentManager.h"
 #import "UIAlertView+Blocks.h"
+#import "PayPalMobile.h"
 
 @interface GPCPaymentManager ()
 @property UIAlertView *paymentAlertView;
@@ -25,15 +26,10 @@
     return sharedInstance;
 }
 
-- (void)notifyPaymentAfterDelay:(NSTimeInterval)afterDelay
-{
-    
-}
-
 - (void)showPaymentAlert
 {
     RIButtonItem *paymentItem = [RIButtonItem itemWithLabel:@"Pay" action:^{
-        [_delegate didPaid];
+        [_delegate willPaid];
     }];
     
     _paymentAlertView = [[UIAlertView alloc] initWithTitle:@"GeliPay"
@@ -55,5 +51,30 @@
     [localNotification setSoundName:UILocalNotificationDefaultSoundName];
     [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
 }
+
+#pragma mark - PayPalPaymentDelegate methods
+
+- (void)payPalPaymentDidComplete:(PayPalPayment *)completedPayment
+{
+    [self verifyCompletedPayment:completedPayment];
+    [_delegate didPaid];
+}
+
+- (void)payPalPaymentDidCancel
+{
+    [_delegate didCancel];
+}
+
+- (void)verifyCompletedPayment:(PayPalPayment *)completedPayment {
+    // Send the entire confirmation dictionary
+    NSData *confirmation = [NSJSONSerialization dataWithJSONObject:completedPayment.confirmation
+                                                           options:0
+                                                             error:nil];
+    
+    // Send confirmation to your server; your server should verify the proof of payment
+    // and give the user their goods or services. If the server is not reachable, save
+    // the confirmation and try again later.
+}
+
 
 @end
