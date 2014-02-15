@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		949506EF18AE25420038046B /* GPCCancelableDelayedExecution.m in Sources */ = {isa = PBXBuildFile; fileRef = 949506EE18AE25420038046B /* GPCCancelableDelayedExecution.m */; };
+		94DFB97418AF1BE3007BFAAA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DFB97318AF1BE3007BFAAA /* AudioToolbox.framework */; };
+		94DFB97618AF20A9007BFAAA /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DFB97518AF20A9007BFAAA /* AdSupport.framework */; };
 		94EA3AF118AD9B4C003976D8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94EA3AF018AD9B4C003976D8 /* Foundation.framework */; };
 		94EA3AF318AD9B4C003976D8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94EA3AF218AD9B4C003976D8 /* CoreGraphics.framework */; };
 		94EA3AF518AD9B4C003976D8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94EA3AF418AD9B4C003976D8 /* UIKit.framework */; };
@@ -34,6 +37,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		949506ED18AE25420038046B /* GPCCancelableDelayedExecution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCCancelableDelayedExecution.h; sourceTree = "<group>"; };
+		949506EE18AE25420038046B /* GPCCancelableDelayedExecution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCCancelableDelayedExecution.m; sourceTree = "<group>"; };
+		94DFB97318AF1BE3007BFAAA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		94DFB97518AF20A9007BFAAA /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		94EA3AED18AD9B4C003976D8 /* GeliPayClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeliPayClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94EA3AF018AD9B4C003976D8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		94EA3AF218AD9B4C003976D8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -60,6 +67,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94DFB97618AF20A9007BFAAA /* AdSupport.framework in Frameworks */,
+				94DFB97418AF1BE3007BFAAA /* AudioToolbox.framework in Frameworks */,
 				94EA3AF318AD9B4C003976D8 /* CoreGraphics.framework in Frameworks */,
 				94EA3AF518AD9B4C003976D8 /* UIKit.framework in Frameworks */,
 				94EA3AF118AD9B4C003976D8 /* Foundation.framework in Frameworks */,
@@ -79,9 +88,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		949506EC18AE24E90038046B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				949506ED18AE25420038046B /* GPCCancelableDelayedExecution.h */,
+				949506EE18AE25420038046B /* GPCCancelableDelayedExecution.m */,
+			);
+			name = Models;
+			path = GeliPayClient/Models;
+			sourceTree = "<group>";
+		};
 		94EA3AE418AD9B4C003976D8 = {
 			isa = PBXGroup;
 			children = (
+				949506EC18AE24E90038046B /* Models */,
 				94EA3AF618AD9B4C003976D8 /* GeliPayClient */,
 				94EA3B1518AD9B4C003976D8 /* GeliPayClientTests */,
 				94EA3AEF18AD9B4C003976D8 /* Frameworks */,
@@ -101,6 +121,8 @@
 		94EA3AEF18AD9B4C003976D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				94DFB97518AF20A9007BFAAA /* AdSupport.framework */,
+				94DFB97318AF1BE3007BFAAA /* AudioToolbox.framework */,
 				94EA3AF018AD9B4C003976D8 /* Foundation.framework */,
 				94EA3AF218AD9B4C003976D8 /* CoreGraphics.framework */,
 				94EA3AF418AD9B4C003976D8 /* UIKit.framework */,
@@ -200,6 +222,13 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = iBencon;
 				TargetAttributes = {
+					94EA3AEC18AD9B4C003976D8 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					94EA3B0D18AD9B4C003976D8 = {
 						TestTargetID = 94EA3AEC18AD9B4C003976D8;
 					};
@@ -251,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94EA3AFD18AD9B4C003976D8 /* main.m in Sources */,
+				949506EF18AE25420038046B /* GPCCancelableDelayedExecution.m in Sources */,
 				94EA3B0118AD9B4C003976D8 /* GPCAppDelegate.m in Sources */,
 				94EA3B0718AD9B4C003976D8 /* GPCViewController.m in Sources */,
 			);
@@ -461,6 +491,7 @@
 				94EA3B2118AD9B4C003976D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		94EA3B2218AD9B4C003976D8 /* Build configuration list for PBXNativeTarget "GeliPayClientTests" */ = {
 			isa = XCConfigurationList;
@@ -469,6 +500,7 @@
 				94EA3B2418AD9B4C003976D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

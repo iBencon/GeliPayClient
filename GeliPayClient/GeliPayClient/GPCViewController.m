@@ -7,9 +7,13 @@
 //
 
 #import "GPCViewController.h"
+#import <AudioToolbox/AudioToolbox.h>
+#import <AdSupport/AdSupport.h>
 
 @interface GPCViewController ()
-
+@property NSTimer *startCountDownTimer;
+@property NSTimer *playSoundTimer;
+@property UIBackgroundTaskIdentifier bgTask;
 @end
 
 @implementation GPCViewController
@@ -17,13 +21,52 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    NSString *advertisingID = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    NSLog(@">>>>> UUID is ... %@", advertisingID);
+    
+    UIApplication* app = [UIApplication sharedApplication];
+    
+    NSLog(@">>>>> Start Background Task.");
+    _bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
+        NSLog(@">>>>> End Background Task.");
+        [app endBackgroundTask:_bgTask];
+        _bgTask = UIBackgroundTaskInvalid;
+    }];
+    
+    _startCountDownTimer = [NSTimer scheduledTimerWithTimeInterval:3
+                                                            target:self
+                                                          selector:@selector(startCountDown)
+                                                          userInfo:nil
+                                                           repeats:NO];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+
+- (void)startCountDown
+{
+    NSLog(@">>>>> Notify and Start Count Down.");
+    _playSoundTimer = [NSTimer scheduledTimerWithTimeInterval:3
+                                                       target:self
+                                                     selector:@selector(playSound)
+                                                     userInfo:nil repeats:NO];
+}
+
+- (void)playSound
+{
+    NSLog(@">>>>> Play Sound");
+    AudioServicesPlaySystemSound(1000);
+}
+
+- (void)payment
+{
+    NSLog(@">>>>> Payment");
+    
 }
 
 @end
