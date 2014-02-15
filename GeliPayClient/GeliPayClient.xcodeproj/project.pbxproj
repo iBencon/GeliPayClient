@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		949506EF18AE25420038046B /* GPCCancelableDelayedExecution.m in Sources */ = {isa = PBXBuildFile; fileRef = 949506EE18AE25420038046B /* GPCCancelableDelayedExecution.m */; };
 		94C69B0C18AF341200B45FFE /* RIButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C69B0618AF341200B45FFE /* RIButtonItem.m */; };
 		94C69B0D18AF341200B45FFE /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C69B0818AF341200B45FFE /* UIActionSheet+Blocks.m */; };
 		94C69B0F18AF341200B45FFE /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C69B0B18AF341200B45FFE /* UIAlertView+Blocks.m */; };
@@ -41,6 +40,12 @@
 		94EA3B1218AD9B4C003976D8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94EA3AF418AD9B4C003976D8 /* UIKit.framework */; };
 		94EA3B1A18AD9B4C003976D8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94EA3B1818AD9B4C003976D8 /* InfoPlist.strings */; };
 		94EA3B1C18AD9B4C003976D8 /* GeliPayClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 94EA3B1B18AD9B4C003976D8 /* GeliPayClientTests.m */; };
+		94F79FA518AFA681001D5964 /* GPCSoudPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F79FA418AFA681001D5964 /* GPCSoudPlayer.m */; };
+		94F79FA918AFA98C001D5964 /* GPCBeaconUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F79FA818AFA98C001D5964 /* GPCBeaconUtility.m */; };
+		94F79FAC18AFAB49001D5964 /* GPCDeviceInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F79FAB18AFAB49001D5964 /* GPCDeviceInformation.m */; };
+		94F79FAF18AFAC2F001D5964 /* GPCBackgroundTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F79FAE18AFAC2F001D5964 /* GPCBackgroundTaskManager.m */; };
+		94F79FB218AFB2FB001D5964 /* GPCPaymentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F79FB118AFB2FB001D5964 /* GPCPaymentManager.m */; };
+		94F79FDA18AFC0E3001D5964 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F79FD918AFC0E3001D5964 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,8 +59,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		949506ED18AE25420038046B /* GPCCancelableDelayedExecution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCCancelableDelayedExecution.h; sourceTree = "<group>"; };
-		949506EE18AE25420038046B /* GPCCancelableDelayedExecution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCCancelableDelayedExecution.m; sourceTree = "<group>"; };
 		94C69B0518AF341200B45FFE /* RIButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RIButtonItem.h; path = "../submodules/UIAlertView-Blocks/RIButtonItem.h"; sourceTree = "<group>"; };
 		94C69B0618AF341200B45FFE /* RIButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RIButtonItem.m; path = "../submodules/UIAlertView-Blocks/RIButtonItem.m"; sourceTree = "<group>"; };
 		94C69B0718AF341200B45FFE /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIActionSheet+Blocks.h"; path = "../submodules/UIAlertView-Blocks/UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
@@ -108,6 +111,17 @@
 		94EA3B1718AD9B4C003976D8 /* GeliPayClientTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GeliPayClientTests-Info.plist"; sourceTree = "<group>"; };
 		94EA3B1918AD9B4C003976D8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94EA3B1B18AD9B4C003976D8 /* GeliPayClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeliPayClientTests.m; sourceTree = "<group>"; };
+		94F79FA318AFA681001D5964 /* GPCSoudPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCSoudPlayer.h; sourceTree = "<group>"; };
+		94F79FA418AFA681001D5964 /* GPCSoudPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCSoudPlayer.m; sourceTree = "<group>"; };
+		94F79FA718AFA98C001D5964 /* GPCBeaconUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPCBeaconUtility.h; path = ../Delegate/GPCBeaconUtility.h; sourceTree = "<group>"; };
+		94F79FA818AFA98C001D5964 /* GPCBeaconUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPCBeaconUtility.m; path = ../Delegate/GPCBeaconUtility.m; sourceTree = "<group>"; };
+		94F79FAA18AFAB49001D5964 /* GPCDeviceInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCDeviceInformation.h; sourceTree = "<group>"; };
+		94F79FAB18AFAB49001D5964 /* GPCDeviceInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCDeviceInformation.m; sourceTree = "<group>"; };
+		94F79FAD18AFAC2F001D5964 /* GPCBackgroundTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCBackgroundTaskManager.h; sourceTree = "<group>"; };
+		94F79FAE18AFAC2F001D5964 /* GPCBackgroundTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCBackgroundTaskManager.m; sourceTree = "<group>"; };
+		94F79FB018AFB2FB001D5964 /* GPCPaymentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCPaymentManager.h; sourceTree = "<group>"; };
+		94F79FB118AFB2FB001D5964 /* GPCPaymentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCPaymentManager.m; sourceTree = "<group>"; };
+		94F79FD918AFC0E3001D5964 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94F79FDA18AFC0E3001D5964 /* MessageUI.framework in Frameworks */,
 				94DFB97C18AF2470007BFAAA /* CoreLocation.framework in Frameworks */,
 				94DFB97A18AF2467007BFAAA /* CoreBluetooth.framework in Frameworks */,
 				94DFB97818AF245B007BFAAA /* SystemConfiguration.framework in Frameworks */,
@@ -140,16 +155,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		949506EC18AE24E90038046B /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				949506ED18AE25420038046B /* GPCCancelableDelayedExecution.h */,
-				949506EE18AE25420038046B /* GPCCancelableDelayedExecution.m */,
-			);
-			name = Models;
-			path = GeliPayClient/Models;
-			sourceTree = "<group>";
-		};
 		94C69B0418AF33EF00B45FFE /* UIAlertViewBlocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,9 +216,9 @@
 		94EA3AE418AD9B4C003976D8 = {
 			isa = PBXGroup;
 			children = (
-				94C69B2E18AF55B600B45FFE /* Network */,
 				94C69B2D18AF559D00B45FFE /* Submodules */,
-				949506EC18AE24E90038046B /* Models */,
+				94C69B2E18AF55B600B45FFE /* Network */,
+				94F79FA218AFA62D001D5964 /* Utility */,
 				94EA3AF618AD9B4C003976D8 /* GeliPayClient */,
 				94EA3B1518AD9B4C003976D8 /* GeliPayClientTests */,
 				94EA3AEF18AD9B4C003976D8 /* Frameworks */,
@@ -233,6 +238,7 @@
 		94EA3AEF18AD9B4C003976D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				94F79FD918AFC0E3001D5964 /* MessageUI.framework */,
 				94DFB97D18AF2499007BFAAA /* libEstimoteSDK.a */,
 				94DFB97B18AF2470007BFAAA /* CoreLocation.framework */,
 				94DFB97918AF2467007BFAAA /* CoreBluetooth.framework */,
@@ -288,6 +294,24 @@
 				94EA3B1818AD9B4C003976D8 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		94F79FA218AFA62D001D5964 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				94F79FA718AFA98C001D5964 /* GPCBeaconUtility.h */,
+				94F79FA818AFA98C001D5964 /* GPCBeaconUtility.m */,
+				94F79FA318AFA681001D5964 /* GPCSoudPlayer.h */,
+				94F79FA418AFA681001D5964 /* GPCSoudPlayer.m */,
+				94F79FAA18AFAB49001D5964 /* GPCDeviceInformation.h */,
+				94F79FAB18AFAB49001D5964 /* GPCDeviceInformation.m */,
+				94F79FAD18AFAC2F001D5964 /* GPCBackgroundTaskManager.h */,
+				94F79FAE18AFAC2F001D5964 /* GPCBackgroundTaskManager.m */,
+				94F79FB018AFB2FB001D5964 /* GPCPaymentManager.h */,
+				94F79FB118AFB2FB001D5964 /* GPCPaymentManager.m */,
+			);
+			name = Utility;
+			path = GeliPayClient/Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -395,21 +419,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94F79FA518AFA681001D5964 /* GPCSoudPlayer.m in Sources */,
 				94C69B2918AF51F500B45FFE /* AFURLConnectionOperation.m in Sources */,
 				94EA3AFD18AD9B4C003976D8 /* main.m in Sources */,
 				94C69B0D18AF341200B45FFE /* UIActionSheet+Blocks.m in Sources */,
+				94F79FAF18AFAC2F001D5964 /* GPCBackgroundTaskManager.m in Sources */,
 				94C69B0C18AF341200B45FFE /* RIButtonItem.m in Sources */,
 				94C69B2B18AF51F500B45FFE /* AFURLResponseSerialization.m in Sources */,
 				94C69B3418AF565600B45FFE /* GPCNetworking.m in Sources */,
-				949506EF18AE25420038046B /* GPCCancelableDelayedExecution.m in Sources */,
 				94C69B2A18AF51F500B45FFE /* AFURLRequestSerialization.m in Sources */,
+				94F79FA918AFA98C001D5964 /* GPCBeaconUtility.m in Sources */,
 				94C69B2818AF51F500B45FFE /* AFSecurityPolicy.m in Sources */,
 				94C69B2418AF51F500B45FFE /* AFHTTPRequestOperation.m in Sources */,
 				94C69B2C18AF51F500B45FFE /* AFURLSessionManager.m in Sources */,
+				94F79FAC18AFAB49001D5964 /* GPCDeviceInformation.m in Sources */,
 				94C69B0F18AF341200B45FFE /* UIAlertView+Blocks.m in Sources */,
 				94EA3B0118AD9B4C003976D8 /* GPCAppDelegate.m in Sources */,
 				94C69B2618AF51F500B45FFE /* AFHTTPSessionManager.m in Sources */,
 				94EA3B0718AD9B4C003976D8 /* GPCViewController.m in Sources */,
+				94F79FB218AFB2FB001D5964 /* GPCPaymentManager.m in Sources */,
 				94C69B2718AF51F500B45FFE /* AFNetworkReachabilityManager.m in Sources */,
 				94C69B2518AF51F500B45FFE /* AFHTTPRequestOperationManager.m in Sources */,
 			);
@@ -549,7 +577,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/nishiyama_y/Workspace/hackday/GeliPayClient/submodules/EstimoteSDK/EstimoteSDK,
+					"/Users/nishiyama_y/Workspace/hackday/GeliPayClient/submodules/BlocksKit-iOS\\ 2.0.0",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -571,7 +601,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/nishiyama_y/Workspace/hackday/GeliPayClient/submodules/EstimoteSDK/EstimoteSDK,
+					"/Users/nishiyama_y/Workspace/hackday/GeliPayClient/submodules/BlocksKit-iOS\\ 2.0.0",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
