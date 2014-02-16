@@ -20,6 +20,10 @@
 
 + (id)sharedInstance;
 
+- (void)requestStatusForRegion;
+
+- (void)forceLogout;
+
 @end
 
 FOUNDATION_EXTERN const NSInteger kBeaconMajorID;

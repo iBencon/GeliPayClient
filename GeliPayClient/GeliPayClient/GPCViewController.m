@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, ToiletStatus)
     ToiletStatusPaid
 };
 
-@interface GPCViewController () <GPCBeaconUtilityDelegate, GPCPaymentManagerDelegate, GPCCountDownTimerDelegate>
+@interface GPCViewController () <GPCBeaconUtilityDelegate, GPCPaymentManagerDelegate, GPCCountDownTimerDelegate, UITextViewDelegate>
 
 @property NSTimer                   *delayedNotificationTimer;
 @property UIAlertView               *paymentAlertView;
@@ -54,11 +54,17 @@ typedef NS_ENUM(NSInteger, ToiletStatus)
     [self lotationLogo3D];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willTerminal) name:UIApplicationWillTerminateNotification object:nil];
 }
 
 - (void)willEnterForeground
 {
     [self lotationLogo3D];
+}
+
+- (void)willTerminal
+{
+    [self onExitRegion];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -92,6 +98,7 @@ typedef NS_ENUM(NSInteger, ToiletStatus)
 static const CGFloat kPlaySoundDelayTime = 5.0f;
 - (void)notifyAndPlaySoundAfterDelay
 {
+    [_paymentButton setHidden:NO];
     [[GPCCountDownTimer sharedInstance] executeBlock:^{
         [[GPCSoudPlayer sharedInstance] startRepeat];
         [self updateUI:ToiletStatusTooLong];
@@ -122,7 +129,7 @@ static const CGFloat kPlaySoundDelayTime = 5.0f;
         case ToiletStatusTooLong:
             [_statusImage setImage:[UIImage imageNamed:@"login"]];
             [_paymentButton setHidden:NO];
-            [_informationLabel setText:@"長居しています"];
+            [_informationLabel setText:@"体調が悪いのですか？"];
             break;
         case ToiletStatusPaid:
             [_statusImage setImage:[UIImage imageNamed:@"login"]];
@@ -144,7 +151,7 @@ static const CGFloat kPlaySoundDelayTime = 5.0f;
 - (IBAction)onDebugButtonTapped:(id)sender
 {
     [[GPCBackgroundTaskManager sharedInstance] startBackgroundTask];
-    [self onExitRegion];
+    [[GPCBeaconUtility sharedInstance] forceLogout];
 }
 
 #pragma mark - Countdown Timer Delegate
@@ -152,7 +159,7 @@ static const CGFloat kPlaySoundDelayTime = 5.0f;
 - (void)onUpdateTime:(NSTimeInterval)restTime
 {
     NSInteger integerTime = (NSInteger)roundf(restTime);
-    [_informationLabel setText:[NSString stringWithFormat:@"残り %d秒",integerTime]];
+    [_informationLabel setText:[NSString stringWithFormat:@"残り %ld秒",(long)integerTime]];
 }
 
 #pragma mark - Estimote Delegate
@@ -249,7 +256,7 @@ static const CGFloat kNotifyAndStartCountDownTime = 5.0f;
     
 #ifndef OFFLINE
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary* param = @{@"devise_id" : [NSString stringWithFormat:@"%ld-%d", (long)kBeaconMajorID, kBeaconMinorID],
+    NSDictionary* param = @{@"devise_id" : [NSString stringWithFormat:@"%ld-%ld", (long)kBeaconMajorID, (long)kBeaconMinorID],
                             @"uid" : [GPCDeviceInformation uniqueID]};
     [manager POST:@"http://gelipay.herokuapp.com/users/pay.json" parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@">>>>> Response: %@", responseObject);
