@@ -15,6 +15,7 @@
 @interface GPCBeaconUtility () <ESTBeaconManagerDelegate>
 @property ESTBeaconManager  *beaconManager;
 @property BOOL              isEnter;
+@property ESTBeaconRegion   *region;
 @end
 
 const NSInteger kBeaconMajorID = 6521;
@@ -38,16 +39,32 @@ const NSInteger kBeaconMinorID = 13509;
     _beaconManager = [[ESTBeaconManager alloc] init];
     [_beaconManager setDelegate:self];
     [_beaconManager setAvoidUnknownStateBeacons:YES];
-    ESTBeaconRegion *region = [[ESTBeaconRegion alloc] initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID
-                                                                       major:kBeaconMajorID
-                                                                       minor:kBeaconMinorID
-                                                                  identifier:@"jp.co.GeliPayClient.iBencon"];
+    _region = [[ESTBeaconRegion alloc] initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID
+                                                       major:kBeaconMajorID
+                                                       minor:kBeaconMinorID
+                                                  identifier:@"jp.co.GeliPayClient.iBencon"];
 
-    [_beaconManager startRangingBeaconsInRegion:region];
+    [_beaconManager startRangingBeaconsInRegion:_region];
 
-    [_beaconManager startMonitoringForRegion:region];
-    [_beaconManager requestStateForRegion:region];
+    [_beaconManager startMonitoringForRegion:_region];
+    [self requestStatusForRegion];
 }
+
+- (void)requestStatusForRegion
+{
+    [_beaconManager requestStateForRegion:_region];
+}
+
+- (void)forceLogout
+{
+    _isEnter = YES;
+    [self onExitRegion];
+    double delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self requestStatusForRegion];
+
+    });}
 
 - (void)beaconManager:(ESTBeaconManager *)manager
       didRangeBeacons:(NSArray *)beacons
